@@ -2,6 +2,8 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version '2.7.7'
 	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+  // npm
+  id "com.github.node-gradle.node" version "2.2.3"
 }
 
 group = 'com.example'
@@ -30,3 +32,17 @@ dependencies {
 tasks.named('test') {
 	useJUnitPlatform()
 }
+
+// 프론트 task runner 시작
+node {
+  download = false
+  version = '14.17.6' //자신이 사용하는 노드 버전
+  nodeModulesDir = file("${projectDir}/")
+}
+task runGulpBuild(type: NpmTask) {
+  dependsOn npmInstall
+  args = ['run', 'build']
+}
+
+compileJava.dependsOn runGulpBuild
+// 프론트 task runner 끝

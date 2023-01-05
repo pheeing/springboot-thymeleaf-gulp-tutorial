@@ -36,5 +36,6 @@ out/
 ### VS Code ###
 .vscode/
 
-# node_modules
+# task-runner
 node_modules
+src/main/resources/static/dist
